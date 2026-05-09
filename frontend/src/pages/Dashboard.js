@@ -11,9 +11,9 @@ function Dashboard() {
     setData(res.data);
   };
 
-  useEffect(() => {
-    loadData();
-  }, []);
+useEffect(() => {
+  loadData();
+}, [loadData]);
 
   const addExpense = async () => {
     const title = prompt("Enter title");
