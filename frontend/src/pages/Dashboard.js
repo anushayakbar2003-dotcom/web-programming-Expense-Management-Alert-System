@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import API from "../api";
 
 function Dashboard() {
@@ -6,14 +6,14 @@ function Dashboard() {
 
   const userId = localStorage.getItem("userId");
 
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     const res = await API.get(`/expenses/${userId}`);
     setData(res.data);
-  };
+  }, [userId]);
 
-useEffect(() => {
-  loadData();
-}, [loadData]);
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
 
   const addExpense = async () => {
     const title = prompt("Enter title");
@@ -32,7 +32,7 @@ useEffect(() => {
 
   return (
     <div>
-        <h1>Expense Management Alert System</h1>
+      <h1>Expense Management Alert System</h1>
       <h2>Dashboard</h2>
 
       <button onClick={addExpense}>Add Expense</button>
